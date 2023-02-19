@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+    <script defer src="index.js"></script>
+  </head>
+  <style>
+    .container {
+      width: max-content;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <input id="input" type="text" placeholder="Input some value" />
+      <button id="button">Поиск</button>
+      <ul class="object"></ul>
+    </div>
+    <script>
+      const object = {
+        firstLevelFirstField: {
+          secondLevelFirstField: 1,
+          secondLevelSecondField: {
+            thirdLevelFirstField: "a2",
+            thirdLevelSecondField: {
+              fourthLevelFirstField: {
+                fifthLevelFirstField: "a2",
+                fifthLevelSecondField: 5,
+                fifthLevelThirdField: "School",
+              },
+            },
+            thirdLevelThirdField: {},
+            thirdLevelFourthField: 500,
+          },
+          secondLevelThirdField: {},
+          secondLevelFourthField: {
+            thirdLevelFirstField: "JavaScript",
+            thirdLevelSecondField: "margin auto",
+            thirdLevelThirdField: "!important is evel",
+          },
+          secondLevelFifthField: "Async",
+        },
+        firstLevelSecondField: "easy",
+        firstLevelThirdField: 123,
+        firstLevelFourthField: {
+          secondLevelFirstField: "React.js",
+          secondLevelSecondField: {
+            thirdLevelFirstField: 42,
+          },
+        },
+      };
+
+      const input = document.querySelector("#input");
+      const button = document.querySelector("#button");
+      const body = document.querySelector(".object");
+      let level = prompt("Задайте отображение уровней вложенности");
+
+      const displayObject = (obj, parentNode, level) => {
+        if (level > 0) {
+          for (let key in obj) {
+            let li = document.createElement("li");
+            li.innerHTML = key;
+            parentNode.appendChild(li);
+            if (typeof obj[key] === "object") {
+              let subParent = document.createElement("ul");
+              li.appendChild(subParent);
+              level--;
+              displayObject(obj[key], subParent, level);
+            } else {
+              li.innerHTML += `: ${obj[key]}`;
+            }
+          }
+        }
+      };
+      displayObject(object, document.querySelector(".object"), level);
+
+      let inputValue = '2'
+      button.addEventListener("click", () => {
+        body.innerHTML = "";
+        inputValue = input.value;
+        console.log(inputValue);
+      });
+
+      let results = []
+    </script>
+  </body>
+</html>

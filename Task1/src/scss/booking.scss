@@ -1,0 +1,59 @@
+.booking-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+    gap: 3rem;
+}
+
+.booking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+}
+
+.rezervari-form {
+    width: min(30rem, 80%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .2rem;
+}
+
+.timetable {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    font-family: 'Open Sans';
+    color: $blackTransp;
+    white-space:nowrap
+}
+
+.bold {
+    font-family: 'Open Sans';
+    font-weight: 700;
+    white-space:nowrap
+}
+
+@media (max-width:1000px) {
+    .booking-wrap {
+        flex-direction: column;
+    }
+    .booking {
+        width: 100%;
+    }
+    .rezervari-form{
+        flex-direction: column;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+    .timetable {
+        flex-wrap: wrap;
+    } 
+}

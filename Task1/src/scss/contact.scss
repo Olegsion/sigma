@@ -1,0 +1,42 @@
+.contact-wrap {
+    flex: 1 0 auto;
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+    gap: 3rem;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+}
+
+.contact-form {
+    width: min(40rem, 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .2rem;
+}
+
+@media (max-width:1000px) {
+    .contact-wrap {
+        flex-direction: column;
+    }
+    .contact {
+        width: 100%;
+    }
+    .contact-form{
+        flex-direction: column;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+}
+
