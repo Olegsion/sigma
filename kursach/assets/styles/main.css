@@ -1,0 +1,127 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body::-webkit-scrollbar {
+    width: .5rem;
+    background-color: #FFFBF5;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #132128;
+}
+
+html, body {
+    height: 100%;
+    background-color: #E6D8B6;
+}
+
+h1 {
+    text-align: center;
+}
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #132128;
+}
+
+.header {
+    flex: 2 0 auto;
+    max-height: 12%;
+    width: 100%;
+    background-color: #6E978C;
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    height: 100%;
+    width: min(70rem, 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    height: 100%;
+}
+
+.logo-image {
+    height: 100%;
+}
+
+.buttons-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.buttons-block--wide {
+    width: 30%;
+}
+
+.main {
+    flex: 1 0 auto;
+    min-height: 75%;
+    width: min(70rem, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-color: #FFFBF5;
+}
+
+.nav {
+    width: min(70rem, 70%);
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: underline;
+    background-color: #6E978C;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.sorting, .desc {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.sorting__links, .desc__links {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.info-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 5rem;
+}
+
+.info-block p {
+    text-indent: 1.5rem;
+}
+
+.footer{
+    flex: 0 0 auto;
+    height: 5%;
+    width: 100%;
+    background-color: #6E978C;
+}
