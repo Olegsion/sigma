@@ -6,11 +6,23 @@ $stmt->execute([$_REQUEST['id']]);
 
 $thread = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$sql = 'SELECT * FROM boards WHERE value=?';
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$thread['board']]);
+
+$board = $stmt->fetch(PDO::FETCH_ASSOC);
+
 $sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE thread_id=?';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$thread['id']]);
 
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$sql = 'SELECT avatar FROM users WHERE login=?';
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$thread['author']]);
+
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <body>
@@ -18,6 +30,8 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <? require_once 'vendor/components/header.php' ?>
     <main class="main">
       <div class="content">
+        <h2 class="board-heading"><? echo $board['name'] ?></h2>
+        <p class="board-desc"><? echo $board['description'] ?></p>
         <?
         if ($_SESSION['user']) {
           echo '
@@ -43,27 +57,51 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="posts">
           <div id="<? echo  $thread['id'] ?>" class="post">
             <div class="post__info">
+              <?
+              if ($user['avatar'] != '') {
+                echo '<div class="profile__image circle" style="background: url(' . $user['avatar'] . ') no-repeat center;   background-size: cover;"></div>';
+              } else {
+                echo ' <img src="assets/images/user_icon.png" alt="" class="profile__image">';
+              }
+              ?>
               <a class="post__author" href="profile.php?user=<? echo  $thread['author'] ?>"><? echo  $thread['author'] ?></a>
               <p class="post__date"><? echo  $thread['date'] ?></p>
               <a class="post__id">#<? echo  $thread['id'] ?></a>
             </div>
             <div class="post__content">
-              <img class="post__image" src="<? echo  $thread['pic'] ?>" alt="">
+              <?
+              if ($thread['pic']) {
+                echo '<img class="post__image" src="' . $thread['pic'] . '" alt="">';
+              }
+              ?>
               <p class="post__body"><? echo  $thread['body'] ?></p>
             </div>
           </div>
           <?
           for ($i = 0; $i < count($posts); $i++) {
+            $sql = 'SELECT avatar FROM users WHERE login=?';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$posts[$i]['author']]);
+
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
             echo '
             <div id="' .  $posts[$i]['id'] . '" class="post">
-              <div class="post__info">
+            <div class="post__info">';
+            if ($user['avatar'] != '') {
+              echo '<div class="profile__image circle" style="background: url(' . $user['avatar'] . ') no-repeat center;   background-size: cover;"></div>';
+            } else {
+              echo ' <img src="assets/images/user_icon.png" alt="" class="profile__image">';
+            }
+            echo '
                 <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '">' . $posts[$i]['author'] . '</a>
                 <p class="post__date">' . $posts[$i]['date'] . '</p>
                 <a class="post__id">#' . $posts[$i]['id'] . '</a>
               </div>
-              <div class="post__content"> 
-                <img class="post__image" src="' . $posts[$i]['pic'] . '" alt="">
-                <p class="post__body">' . $posts[$i]['body'] . '</p>
+              <div class="post__content">';
+            if ($posts[$i]['pic']) {
+              echo '<img class="post__image" src="' . $posts[$i]['pic'] . '" alt="">';
+            }
+            echo '<p class="post__body">' . $posts[$i]['body'] . '</p>
               </div>
             </div>
             ';
@@ -77,14 +115,8 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $page = basename(__FILE__);
     require_once 'vendor/components/error_form.php';
     ?>
-    <?
-    if ($_SESSION['user'] != NULL) {
-      echo '
-      <script defer src="assets/js/previewImage.js"></script>
-      <script defer src="assets/js/reply.js"></script>
-      ';
-    }
-    ?>
+    <script defer src="assets/js/previewImage.js"></script>
+    <script defer src="assets/js/reply.js"></script>
   </div>
 </body>
 

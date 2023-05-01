@@ -5,7 +5,7 @@
 
   <div class="profile">
     <?php
-    if ($_SESSION['user']['avatar']) {
+    if ($_SESSION['user']['avatar'] != '') {
       echo '
             <div class="profile__image circle" style="background: url(' . $_SESSION['user']['avatar']  . ') no-repeat center;   background-size: cover;"></div>
             ';

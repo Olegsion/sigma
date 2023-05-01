@@ -4,9 +4,9 @@ require_once '../db_connect.php';
 
 $lenght = strlen($_FILES['pic']['name']);
 
-if ($lenght < 0) {
+if ($lenght > 0) {
   $target_dir = "../../../uploads/posts_images/";
-  $fileName = time() . "_" . basename($_FILES["pic"]["name"]);
+  $fileName = time() . "_" . str_replace(" ", "_", basename($_FILES["pic"]["name"]));
   $target_file = $target_dir . $fileName;
   $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
 
@@ -20,8 +20,6 @@ if ($lenght < 0) {
 $sql = 'INSERT INTO posts(board, author, body, pic, thread_id) VALUES(?,?,?,?,?)';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_REQUEST['board'], $_SESSION['user']['login'], $_POST['body'], $fileName, $_REQUEST['thread_id']]);
-
-
 
 if ($_REQUEST['from']) {
   header('Location: ../../../' . $_REQUEST['from']);

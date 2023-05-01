@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 01 2023 г., 18:01
+-- Время создания: Май 01 2023 г., 20:51
 -- Версия сервера: 8.0.30
 -- Версия PHP: 7.2.34
 
@@ -40,8 +40,8 @@ CREATE TABLE `boards` (
 --
 
 INSERT INTO `boards` (`id`, `name`, `value`, `description`, `theme`) VALUES
-(1, 'Запчасти', 'parts', 'Обсуждаем различные запчасти и места, где их лучше закупать', 'cars'),
-(2, 'Иномарки', 'foreign_cars', 'Иномарки обсуждаем, засираем, осуждаем.', 'cars');
+(1, 'Запчасти', 'parts', 'Обсуждаем различные запчасти и места, где их лучше закупать.', 'cars'),
+(2, 'Иномарки', 'foreign_cars', 'Иномарки обсуждаем.', 'cars');
 
 -- --------------------------------------------------------
 
@@ -58,6 +58,15 @@ CREATE TABLE `posts` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `thread_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `posts`
+--
+
+INSERT INTO `posts` (`id`, `board`, `author`, `body`, `pic`, `date`, `thread_id`) VALUES
+(20345, 'parts', 'supadmin', 'Поехали кароч', 'uploads/posts_images/1682956168__tPWx6ejhXU.jpg', '2023-05-01 18:49:28', 'self'),
+(20348, 'parts', 'supadmin', '<span class=\'reply\'>#20347</span>\r\n\r\nfffdasfa', '', '2023-05-01 18:52:08', '20345'),
+(20349, 'parts', 'supadmin', '<span class=\'reply\'>#20348</span>\r\n\r\nладно', 'uploads/posts_images/1682960254_02495c61b16366db3b299c787b109c5d.jpg', '2023-05-01 19:57:34', '20345');
 
 -- --------------------------------------------------------
 
@@ -101,8 +110,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `login`, `avatar`, `email`, `password`, `role`, `hash`) VALUES
 (1, 'supadmin', 'uploads/users_images/1682669777_preview.png', 'supadmin@mail.ru', 'supadmin', 'user', ''),
 (2, 'admin1', 'uploads/users_images/1682672418_1Ritsu.gif', 'admin@mail.ru', 'admin1', 'user', ''),
-(3, 'admin2', 'uploads/users_images/1682672960_Anti-cringe sprey.jpg', 'admin2@mail.ru', 'admin2', 'user', ''),
-(4, 'lolik1', 'uploads/users_images/1682767275_гас.png', 'lolik@mail.ru', 'lolik1', 'user', '');
+(3, 'admin2', 'uploads/users_images/1682672960_Anti-cringe_sprey.jpg', 'admin2@mail.ru', 'admin2', 'user', '');
 
 --
 -- Индексы сохранённых таблиц
@@ -153,7 +161,7 @@ ALTER TABLE `boards`
 -- AUTO_INCREMENT для таблицы `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20314;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20351;
 
 --
 -- AUTO_INCREMENT для таблицы `themes`
@@ -165,7 +173,7 @@ ALTER TABLE `themes`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
