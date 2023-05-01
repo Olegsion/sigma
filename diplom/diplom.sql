@@ -102,8 +102,7 @@ INSERT INTO `users` (`id`, `login`, `avatar`, `email`, `password`, `role`, `hash
 (1, 'supadmin', 'uploads/users_images/1682669777_preview.png', 'supadmin@mail.ru', 'supadmin', 'user', ''),
 (2, 'admin1', 'uploads/users_images/1682672418_1Ritsu.gif', 'admin@mail.ru', 'admin1', 'user', ''),
 (3, 'admin2', 'uploads/users_images/1682672960_Anti-cringe sprey.jpg', 'admin2@mail.ru', 'admin2', 'user', ''),
-(4, 'lolik1', 'uploads/users_images/1682767275_гас.png', 'lolik@mail.ru', 'lolik1', 'user', ''),
-(5, 'zalupa232', 'uploads/users_images/1682949919_', 'persenivan1@gmail.com', 'xui1242', 'user', '');
+(4, 'lolik1', 'uploads/users_images/1682767275_гас.png', 'lolik@mail.ru', 'lolik1', 'user', '');
 
 --
 -- Индексы сохранённых таблиц
