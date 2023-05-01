@@ -1,0 +1,22 @@
+@import url("main.css");
+@import url("interactive.css");
+@import url("board.css");
+
+@font-face {
+  font-family: "Rubik";
+  src: url("../fonts/Rubik.ttf");
+}
+
+@font-face {
+  font-family: "Rubik-Italic";
+  src: url("../fonts/Rubik-Italic.ttf");
+}
+
+:root {
+  --font-color: #ccc;
+  --accent-font-color: #121116;
+  --background-color: #121116;
+  --input-color: #1a1a1a;
+  --accent-color: #c2622a;
+  --gradient: linear-gradient(150deg, #a1571a 0%, #c2622a 50%, #bf7025 100%);
+}

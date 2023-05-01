@@ -1,0 +1,153 @@
+.layout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: #00000090;
+}
+
+.error-messege {
+  position: fixed;
+  top: 40%;
+  left: 25%;
+  z-index: 5;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--background-color);
+  border-radius: 10px;
+}
+
+.error-heading {
+  font-size: 2rem;
+  color: var(--accent-color);
+}
+
+.close-icon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 20px;
+  cursor: pointer;
+}
+
+.form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 1rem 2rem;
+  border-radius: 5px;
+}
+
+.post-create {
+  width: 90%;
+  gap: 0.7rem;
+}
+
+.form-heading {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+}
+
+.labels {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.label__desc {
+  font-size: 1rem;
+  padding-left: 0.3rem;
+  align-self: start;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  color: var(--font-color);
+  background-color: var(--input-color);
+  border: 1px solid var(--input-color);
+  border-radius: 10px;
+}
+
+.input:focus {
+  border: 1px solid var(--accent-color);
+  color: var(--font-color);
+}
+
+.input::-webkit-input-placeholder {
+  font-size: 0.9rem;
+  font-family: "Rubik-Italic";
+  color: #747474;
+}
+
+.textarea {
+  height: 200px;
+  resize: none;
+  border-radius: 2px;
+}
+
+.textarea::-webkit-scrollbar {
+  position: absolute;
+  right: -4rem;
+  width: 0.7rem;
+  background-color: #633318;
+  border-radius: 0px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 2px;
+}
+
+.button {
+  width: 10.5rem;
+  font-size: 0.9rem;
+  background: var(--gradient);
+  border: none;
+  color: aliceblue;
+  padding: 1rem 0.4rem;
+  border-radius: 5px;
+  text-align: center;
+  transition: 0.6s;
+  cursor: pointer;
+}
+
+.button:hover {
+  scale: 105%;
+  background: var(--gradient);
+}
+
+.submit {
+  width: 70%;
+}
+
+.file {
+  align-items: center;
+}
+
+.preview {
+  max-width: 100%;
+  max-height: 200px;
+}
