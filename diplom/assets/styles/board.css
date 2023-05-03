@@ -5,6 +5,7 @@
 
 .board-desc {
   font-family: "Rubik-Italic";
+  margin-bottom: 1rem;
 }
 
 .posts {
@@ -17,7 +18,8 @@
 
 .post {
   width: auto;
-  max-width: 95%;
+  min-width: 50%;
+  max-width: 80%;
   display: flex;
   flex-direction: column;
   align-items: start;

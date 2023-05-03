@@ -1,0 +1,61 @@
+.profile {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile__avatar {
+  width: 25%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  aspect-ratio: 1/1;
+  width: 100%;
+}
+
+.profile__info {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.login {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: var(--accent-color);
+}
+
+.settings {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.settings__link {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.settings__link:hover {
+  text-decoration: underline;
+}
+
+.selected {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+#posts {
+  display: none;
+}

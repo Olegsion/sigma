@@ -54,9 +54,9 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div id="' .  $posts[$i]['id'] . '" class="post">
               <div class="post__info">';
             if ($user['avatar'] != '') {
-              echo ' <div class="profile__image circle" style="background: url(' . $user['avatar'] . ') no-repeat center;   background-size: cover;"></div>';
+              echo ' <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle" src="' . $user['avatar'] . '" alt=""></a>';
             } else {
-              echo ' <img src="assets/images/user_icon.png" alt="" class="profile__image">';
+              echo ' <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle"src="assets/images/user_icon.png" alt="" class=""></a>';
             }
             echo '
                 <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '">' . $posts[$i]['author'] . '</a>

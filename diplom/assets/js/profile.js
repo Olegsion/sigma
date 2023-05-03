@@ -1,4 +1,4 @@
-const profile = document.querySelector(".profile__image");
+const profile = document.querySelector(".circle");
 const buttons = document.querySelector(".buttons");
 const layout = document.querySelector(".layout");
 

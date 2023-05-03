@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 01 2023 г., 20:51
+-- Время создания: Май 03 2023 г., 09:49
 -- Версия сервера: 8.0.30
 -- Версия PHP: 7.2.34
 
@@ -64,9 +64,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `board`, `author`, `body`, `pic`, `date`, `thread_id`) VALUES
-(20345, 'parts', 'supadmin', 'Поехали кароч', 'uploads/posts_images/1682956168__tPWx6ejhXU.jpg', '2023-05-01 18:49:28', 'self'),
-(20348, 'parts', 'supadmin', '<span class=\'reply\'>#20347</span>\r\n\r\nfffdasfa', '', '2023-05-01 18:52:08', '20345'),
-(20349, 'parts', 'supadmin', '<span class=\'reply\'>#20348</span>\r\n\r\nладно', 'uploads/posts_images/1682960254_02495c61b16366db3b299c787b109c5d.jpg', '2023-05-01 19:57:34', '20345');
+(20358, 'parts', 'mastadmin', 'И так, возник серьёзный вопрос.\r\n\r\nПоломал коробку, взял каноль, стёрлась в первый в же день. Есть вариант вернуть деньги?', 'uploads/posts_images/1683095578_ARMMcRSWtCQ.jpg', '2023-05-03 12:32:58', 'self');
 
 -- --------------------------------------------------------
 
@@ -99,6 +97,7 @@ CREATE TABLE `users` (
   `avatar` varchar(255) NOT NULL,
   `email` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
+  `reg` date NOT NULL,
   `role` varchar(255) NOT NULL DEFAULT 'user',
   `hash` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -107,10 +106,8 @@ CREATE TABLE `users` (
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `login`, `avatar`, `email`, `password`, `role`, `hash`) VALUES
-(1, 'supadmin', 'uploads/users_images/1682669777_preview.png', 'supadmin@mail.ru', 'supadmin', 'user', ''),
-(2, 'admin1', 'uploads/users_images/1682672418_1Ritsu.gif', 'admin@mail.ru', 'admin1', 'user', ''),
-(3, 'admin2', 'uploads/users_images/1682672960_Anti-cringe_sprey.jpg', 'admin2@mail.ru', 'admin2', 'user', '');
+INSERT INTO `users` (`id`, `login`, `avatar`, `email`, `password`, `reg`, `role`, `hash`) VALUES
+(1, 'mastadmin', 'uploads/users_images/1683092603__tPWx6ejhXU.jpg', 'mastadmin@mail.ru', 'mastadmin', '2023-05-03', 'mastadmin', '');
 
 --
 -- Индексы сохранённых таблиц
@@ -161,7 +158,7 @@ ALTER TABLE `boards`
 -- AUTO_INCREMENT для таблицы `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20351;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20359;
 
 --
 -- AUTO_INCREMENT для таблицы `themes`
@@ -173,7 +170,7 @@ ALTER TABLE `themes`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

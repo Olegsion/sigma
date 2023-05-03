@@ -23,7 +23,6 @@ $stmt->execute([$_POST['email']]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
 if ($user) {
   $_SESSION['error'] = 'Пользователь с такой почтой уже существует';
   header('Location: ../../../reg.php');
@@ -39,9 +38,9 @@ if ($user) {
     header('Location: ../../../reg.php');
   } else {
 
-    $sql = 'INSERT INTO users (login, avatar, email, password, hash) VALUES (?,?,?,?,"")';
+    $sql = 'INSERT INTO users (login, avatar, email, password, reg, hash) VALUES (?,?,?,?,?,"")';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_POST['login'], $fileName, $_POST['email'], $_POST['password']]);
+    $stmt->execute([$_POST['login'], $fileName, $_POST['email'], $_POST['password'], date('Y-m-d')]);
 
     $sql = 'SELECT * FROM users WHERE login=? AND password=?';
     $stmt = $pdo->prepare($sql);

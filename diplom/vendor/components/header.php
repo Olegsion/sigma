@@ -3,15 +3,15 @@
     <a href="/"><img class="logo__image" src="assets/images/logo.png" alt="MooChan"></a>
   </div>
 
-  <div class="profile">
+  <div class="user">
     <?php
     if ($_SESSION['user']['avatar'] != '') {
       echo '
-            <div class="profile__image circle" style="background: url(' . $_SESSION['user']['avatar']  . ') no-repeat center;   background-size: cover;"></div>
+            <img class="circle" src="' . $_SESSION['user']['avatar'] . '"></img>
             ';
     } else {
       echo '
-            <img src="assets/images/user_icon.png" alt="" class="profile__image">
+            <img class="circle" src="assets/images/user_icon.png" alt="" class="">
             ';
     }
     ?>
@@ -22,7 +22,7 @@
   <?
   if ($_SESSION['user']) {
     echo '
-        <a href="login.php"><button class="button">Профиль</button></a>
+        <a href="profile.php?user=' . $_SESSION['user']['login'] . '"><button class="button">Профиль</button></a>
         <a href="vendor/scripts/users/logout.php"><button class="button">Выход</button></a>
         ';
   } else {

@@ -44,7 +44,7 @@ body {
 }
 
 .logo,
-.profile {
+.user {
   width: 200px;
   display: flex;
   justify-content: center;
@@ -56,17 +56,12 @@ body {
   cursor: pointer;
 }
 
-.profile__image {
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
-}
-
 .circle {
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 
 .buttons {
@@ -96,7 +91,7 @@ body {
 }
 
 .content {
-  width: 85%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -106,6 +101,9 @@ body {
 }
 
 .nav {
+  position: fixed;
+  top: 10%;
+  right: 0;
   width: 15%;
   height: 100%;
   display: flex;
@@ -114,6 +112,7 @@ body {
   gap: 0.6rem;
   padding: 1rem 0;
   border-left: 2px solid var(--accent-color);
+  background-color: var(--background-color);
 }
 
 .nav__section {
@@ -132,6 +131,7 @@ body {
   font-size: 0.9rem;
   text-decoration: none;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .nav__link:hover {
