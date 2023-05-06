@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 03 2023 г., 09:49
+-- Время создания: Май 06 2023 г., 15:46
 -- Версия сервера: 8.0.30
 -- Версия PHP: 7.2.34
 
@@ -41,7 +41,9 @@ CREATE TABLE `boards` (
 
 INSERT INTO `boards` (`id`, `name`, `value`, `description`, `theme`) VALUES
 (1, 'Запчасти', 'parts', 'Обсуждаем различные запчасти и места, где их лучше закупать.', 'cars'),
-(2, 'Иномарки', 'foreign_cars', 'Иномарки обсуждаем.', 'cars');
+(2, 'Иномарки', 'foreign_cars', 'Иномарки обсуждаем.', 'cars'),
+(3, 'Фантастика', 'fantastic', 'Обсуждаем все любые книги в жанре фантастика', 'books'),
+(4, 'Детективы', 'detective', 'Обсуждаем книги в жанре детектив', 'books');
 
 -- --------------------------------------------------------
 
@@ -64,7 +66,9 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `board`, `author`, `body`, `pic`, `date`, `thread_id`) VALUES
-(20358, 'parts', 'mastadmin', 'И так, возник серьёзный вопрос.\r\n\r\nПоломал коробку, взял каноль, стёрлась в первый в же день. Есть вариант вернуть деньги?', 'uploads/posts_images/1683095578_ARMMcRSWtCQ.jpg', '2023-05-03 12:32:58', 'self');
+(20359, 'detective', 'mastadmin', 'Решил вкатиться в творчество Агаты Кристи.\n\nКакие книги лучшие по мнению критиков и читателей? Что посоветуете прочесть в первую очередь? ', 'uploads/posts_images/1683376931_testpic.jpg', '2023-05-06 18:42:11', 'self'),
+(20360, 'detective', 'mastadmin', '<span class=\'reply\'>#20359</span>\r\n\r\nЛучше сам прочти и составь своё мнение.', '', '2023-05-06 18:43:36', '20359'),
+(20361, 'parts', 'user01', 'Хочу купить японца.\r\n\r\nИмеет ли смысл брать в салоне или лучше взять подержанный лет 5?\r\nКакие подводные?', 'uploads/posts_images/1683377109_ARMMcRSWtCQ.jpg', '2023-05-06 18:45:09', 'self');
 
 -- --------------------------------------------------------
 
@@ -83,7 +87,8 @@ CREATE TABLE `themes` (
 --
 
 INSERT INTO `themes` (`id`, `name`, `value`) VALUES
-(1, 'Автомобили', 'cars');
+(1, 'Автомобили', 'cars'),
+(2, 'Книги', 'books');
 
 -- --------------------------------------------------------
 
@@ -107,7 +112,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `avatar`, `email`, `password`, `reg`, `role`, `hash`) VALUES
-(1, 'mastadmin', 'uploads/users_images/1683092603__tPWx6ejhXU.jpg', 'mastadmin@mail.ru', 'mastadmin', '2023-05-03', 'mastadmin', '');
+(1, 'mastadmin', 'uploads/users_images/1683092603__tPWx6ejhXU.jpg', 'mastadmin@mail.ru', 'mastadmin', '2021-12-01', 'mastadmin', ''),
+(2, 'user01', 'assets/images/user_icon.png', 'user01@mail.ru', 'user01', '2023-05-06', 'user', '');
 
 --
 -- Индексы сохранённых таблиц
@@ -152,25 +158,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `boards`
 --
 ALTER TABLE `boards`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20359;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20362;
 
 --
 -- AUTO_INCREMENT для таблицы `themes`
 --
 ALTER TABLE `themes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -187,7 +193,7 @@ ALTER TABLE `boards`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`board`) REFERENCES `boards` (`value`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`author`) REFERENCES `users` (`login`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`author`) REFERENCES `users` (`login`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

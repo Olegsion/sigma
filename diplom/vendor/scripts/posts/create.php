@@ -30,5 +30,5 @@ if ($_REQUEST['from']) {
 
   $thread = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  header('Location: ../../../thread.php?id=' . $thread['id']);
+  header('Location: ../../../thread.php?thread=' . $thread['id']);
 }

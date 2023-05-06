@@ -1,21 +1,20 @@
 <?
-
+session_start();
 $sql = 'SELECT * FROM themes';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([]);
 
 $themes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 <div class="nav">
   <?
   if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'mastadmin') {
     echo '
-    <div class="admin-panel">
+    <div class="nav__section">
       <p class="section__name">Админ-панель</p>
-      <a href="" class="nav__link">Темы и доски</a>
-      <a href="" class="nav__link">Пользователи</a>
+      <a href="themes.php" class="nav__link">Темы</a>
+      <a href="users.php" class="nav__link">Пользователи</a>
     </div>
     ';
   }

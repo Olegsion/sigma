@@ -18,11 +18,13 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <? require_once 'vendor/components/header.php' ?>
     <main class="main">
       <div class="content">
-        <h2 class="board-heading"><? echo $board['name'] ?></h2>
-        <p class="board-desc"><? echo $board['description'] ?></p>
-        <?
-        if ($_SESSION['user']) {
-          echo '
+        <div class="interactive">
+          <div class="form-container">
+            <h2 class="board-heading"><? echo $board['name'] ?></h2>
+            <p class="board-desc"><? echo $board['description'] ?></p>
+            <?
+            if ($_SESSION['user']) {
+              echo '
                   <form class="form post-create" action="vendor/scripts/posts/create.php?board=' . $board['value'] . '&thread_id=self" method="POST" enctype="multipart/form-data" autocomplete="off">
                     <h2 class="form-heading">Создать тред</h2>
                     <div class="labels">
@@ -40,8 +42,10 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <button class="button submit">Создать</button>
                   </form>
                 ';
-        }
-        ?>
+            }
+            ?>
+          </div>
+        </div>
         <div class="posts">
           <?
           for ($i = 0; $i < count($posts); $i++) {
@@ -51,17 +55,21 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             echo '
-            <div id="' .  $posts[$i]['id'] . '" class="post">
-              <div class="post__info">';
-            if ($user['avatar'] != '') {
-              echo ' <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle" src="' . $user['avatar'] . '" alt=""></a>';
-            } else {
-              echo ' <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle"src="assets/images/user_icon.png" alt="" class=""></a>';
+              <div id="' .  $posts[$i]['id'] . '" class="post">
+              <div class="post__desc">  
+                <div class="post__info">              
+                  <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle" src="' . $user['avatar'] . '" alt=""></a>                 
+                  <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '">' . $posts[$i]['author'] . '</a>
+                  <p class="post__date">' . $posts[$i]['date'] . '</p>
+                  <a class="post__id" href="thread.php?thread=' . $posts[$i]['id'] . '">#' . $posts[$i]['id'] . '</a>
+                </div>
+              <div class="post__interactive">';
+            if ($_SESSION['user']['role'] == 'admin' ||  $_SESSION['user']['role'] == 'mastadmin') {
+              echo '
+                    <a href="vendor/scripts/posts/delete.php?id=' . $posts[$i]['id'] . '&from=board.php?board=' . $board['value'] . '"><img class="delete" src="assets/images/close_icon.png" alt=""></a>
+                    ';
             }
-            echo '
-                <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '">' . $posts[$i]['author'] . '</a>
-                <p class="post__date">' . $posts[$i]['date'] . '</p>
-                <a class="post__id" href="thread.php?id=' . $posts[$i]['id'] . '">#' . $posts[$i]['id'] . '</a>
+            echo ' </div>
               </div>
               <div class="post__content">';
             if ($posts[$i]['pic']) {
