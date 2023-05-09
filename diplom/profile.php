@@ -23,6 +23,7 @@ $threadsCount = count($threads);
 $reg = new DateTime($user['reg']);
 $today = new DateTime('now');
 $diff = $reg->diff($today);
+$days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
 ?>
 
 
@@ -38,13 +39,25 @@ $diff = $reg->diff($today);
           <div class="profile__info">
             <p class="info__el login"><? echo $user['login']; ?></p>
             <p class="info__el">На форуме уже <? echo $diff->days;
-                                              if (substr($diff->days, -1) == '1') {
-                                                echo ' день';
-                                              } else if (substr($diff->days, -1) == '2' || substr($diff->days, -1) == '3' || substr($diff->days, -1) == '4') {
-                                                echo ' дня';
-                                              } else {
-                                                echo ' дней';
-                                              } ?></p>
+                                              for ($i = 0; $i < count($days); $i++) {
+                                                if (substr($diff->days, -2) == $days[$i]) {
+                                                  $day = ' дней';
+                                                  echo $day;
+                                                }
+                                              }
+                                              if ($day == '') {
+                                                if (substr($diff->days, -1) == '1') {
+                                                  $day = ' день';
+                                                  echo  $day;
+                                                } else if (substr($diff->days, -1) == '2' || substr($diff->days, -1) == '3' || substr($diff->days, -1) == '4') {
+                                                  $day = ' дня';
+                                                  echo $day;
+                                                } else {
+                                                  $day = ' дней';
+                                                  echo $day;
+                                                }
+                                              }
+                                              ?></p>
             <p class="info__el">Создал <? echo $postsCount + $threadsCount ?> постов, из них <? echo $threadsCount ?> тредов</p>
             <?
             if ($_SESSION['user']['login'] == $user['login'] || $_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'mastadmin') {
@@ -58,6 +71,11 @@ $diff = $reg->diff($today);
           <a class="settings__link" id="postSelect">Посты</a>
         </div>
         <div id="threads" class="posts">
+          <?
+          if (count($threads) == 0) {
+            echo '<p style="width:85%;text-align:center;"</p>Здесь пока нет тредов</p>';
+          }
+          ?>
           <?
           for ($i = 0; $i < count($threads); $i++) {
             $sql = 'SELECT avatar FROM users WHERE login=?';
@@ -90,6 +108,11 @@ $diff = $reg->diff($today);
           ?>
         </div>
         <div id="posts" class="posts">
+          <?
+          if (count($posts) == 0) {
+            echo '<p style="width:85%;text-align:center;"</p>Здесь пока нет постов</p>';
+          }
+          ?>
           <?
           for ($i = 0; $i < count($posts); $i++) {
             $sql = 'SELECT avatar FROM users WHERE login=?';
@@ -124,7 +147,7 @@ $diff = $reg->diff($today);
       </div>
       <? require_once 'vendor/components/nav.php' ?>
       <script src="assets/js/transition.js"></script>
-      <script src="assets/js/swap.js"></script>
+      <script src="assets/js/swap_posts.js"></script>
     </main>
   </div>
 </body>

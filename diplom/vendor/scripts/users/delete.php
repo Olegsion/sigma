@@ -10,6 +10,10 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 unlink('../../../' . $user['avatar']);
 
+$sql = 'DELETE FROM posts WHERE author=?';
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$user['login']]);
+
 if ($_SESSION['user']['login'] == $user['login']) {
   session_destroy();
   header('Location: ../../../');

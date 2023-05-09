@@ -97,7 +97,6 @@
   padding: 0.8rem 1rem;
   font-size: 1rem;
   outline: none;
-  border: none;
   color: var(--font-color);
   background-color: var(--input-color);
   border: 1px solid var(--input-color);
@@ -121,10 +120,14 @@
   border-radius: 2px;
 }
 
+.desc {
+  height: 100px;
+}
+
 .textarea::-webkit-scrollbar {
   position: absolute;
   right: -4rem;
-  width: 0.7rem;
+  width: 0.4rem;
   background-color: #633318;
   border-radius: 0px;
 }
@@ -132,6 +135,30 @@
 .textarea::-webkit-scrollbar-thumb {
   background-color: var(--accent-color);
   border-radius: 2px;
+}
+
+.select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  color: var(--font-color);
+  background-color: var(--input-color);
+  border: 1px solid var(--input-color);
+  border-radius: 10px;
+  appearance: none;
+  background-image: url("../images/select_icon.png");
+  background-repeat: no-repeat, repeat;
+  background-position: right 1rem top 50%;
+  background-size: 1rem;
+}
+
+.select:focus {
+  border-color: var(--accent-color);
+}
+
+.option {
+  height: 2rem;
 }
 
 .button {

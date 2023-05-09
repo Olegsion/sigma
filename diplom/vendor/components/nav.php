@@ -29,10 +29,14 @@ $themes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->execute([$themes[$i]['value']]);
 
     $boards = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     for ($j = 0; $j < count($boards); $j++) {
       echo '<a href="board.php?board=' . $boards[$j]['value'] . '" class="nav__link">' . $boards[$j]['name'] . '</a>';
     }
     echo '</div>';
   }
+
+
+
   ?>
 </div>

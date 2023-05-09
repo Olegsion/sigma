@@ -48,6 +48,11 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="posts">
           <?
+          if (count($posts) == 0) {
+            echo '<p style="width:85%;text-align:center;">Здесь пока нет постов</p>';
+          }
+          ?>
+          <?
           for ($i = 0; $i < count($posts); $i++) {
             $sql = 'SELECT avatar FROM users WHERE login=?';
             $stmt = $pdo->prepare($sql);

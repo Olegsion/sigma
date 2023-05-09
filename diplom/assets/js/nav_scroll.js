@@ -5,6 +5,8 @@ window.addEventListener("scroll", () => {
   let head = header.getBoundingClientRect();
   if (window.pageYOffset > 0) {
     nav.style.height = "100%";
+  } else {
+    nav.style.height = "90%";
   }
   if (window.pageYOffset > head.bottom + 70) {
     nav.style.top = "0";

@@ -1,8 +1,9 @@
 @import url("main.css");
-@import url("interactive.css");
 @import url("board.css");
 @import url("profile.css");
-@import url("users_themes.css");
+@import url("users.css");
+@import url("themes.css");
+@import url("interactive.css");
 
 @font-face {
   font-family: "Rubik";

@@ -24,7 +24,7 @@ $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="content">
         <div class="interactive">
           <div class="info-block">
-            <h1 class="board-heading">Список пользователей</h1>
+            <h1 class="board-heading">Пользователи</h1>
           </div>
           <?
           if ($_SESSION['user']['role'] == 'mastadmin') {
@@ -37,7 +37,12 @@ $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
           }
           ?>
         </div>
-        <div class="users-container" id="users">
+        <div class="users" id="users">
+          <?
+          if (count($users) == 0) {
+            echo '<p style="width:85%;text-align:center;"</p>На вашем форуме пока нет пользователей</p>';
+          }
+          ?>
           <?
           for ($i = 0; $i < count($users); $i++) {
             echo '<div class="user-block">
@@ -48,14 +53,19 @@ $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
                    <div class="buttons-block">
                    <a href="vendor/scripts/users/delete.php?user=' . $users[$i]['login'] . '&from=users.php"><button class="button">Забанить</button></a>';
             if ($_SESSION['user']['role'] == 'mastadmin') {
-              echo '<a href="vendor/scripts/users/admin.php?user=' . $admins[$i]['login'] . '&from=users.php"><button class="button">Дать админку</button></a>';
+              echo '<a href="vendor/scripts/users/admin.php?user=' . $users[$i]['login'] . '&from=users.php"><button class="button">Дать админку</button></a>';
             }
             echo '</div>
-                  </div>';
+                </div>';
           }
           ?>
         </div>
-        <div class="users-container" id="admins">
+        <div class="users" id="admins">
+          <?
+          if (count($admins) == 0) {
+            echo '<p style="width:85%;text-align:center;"</p>Вы ещё не назначили админов</p>';
+          }
+          ?>
           <?
           if ($_SESSION['user']['role'] == 'mastadmin') {
             for ($i = 0; $i < count($admins); $i++) {

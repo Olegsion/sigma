@@ -7,11 +7,11 @@
 
 .board-desc {
   font-family: "Rubik-Italic";
-  margin-bottom: 1rem;
 }
 
 .posts,
-.users-container {
+.users,
+.themes {
   width: 100%;
   display: flex;
   flex-direction: column;

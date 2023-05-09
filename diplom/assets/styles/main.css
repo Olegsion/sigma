@@ -113,6 +113,18 @@ body {
   padding: 2rem 0;
   border-left: 2px solid var(--accent-color);
   background-color: var(--background-color);
+  overflow-y: auto;
+  direction: rtl;
+}
+
+.nav::-webkit-scrollbar {
+  width: 0.4rem;
+  background-color: #633318;
+}
+
+.nav::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 2px;
 }
 
 .nav__section {
