@@ -44,7 +44,7 @@ if (isset($_REQUEST['new_theme'])) {
 
 <body>
   <div class="wrapper">
-    <? require_once 'vendor/components/header.php' ?>
+    <? require_once 'vendor/components/header.php' ?><? require_once 'vendor/components/auth_modal.php' ?>
     <main class="main">
       <?
       if ($_REQUEST['theme']) {
@@ -103,14 +103,14 @@ if (isset($_REQUEST['new_theme'])) {
           <label class="label">
             <span class="label__desc">Тема</span>
             <select class="select" name="theme" required>';
-                for ($i = 0; $i < count($themes); $i++) {
-                  if ($board['theme'] == $themes[$i]['value']) {
-                    echo '<option selected value="' . $themes[$i]['value'] . '">' . $themes[$i]['name'] . '</option>';
-                  } else {
-                    echo '<option value="' . $themes[$i]['value'] . '">' . $themes[$i]['name'] . '</option>';
-                  }
-                }
-            echo '</select>
+        for ($i = 0; $i < count($themes); $i++) {
+          if ($board['theme'] == $themes[$i]['value']) {
+            echo '<option selected value="' . $themes[$i]['value'] . '">' . $themes[$i]['name'] . '</option>';
+          } else {
+            echo '<option value="' . $themes[$i]['value'] . '">' . $themes[$i]['name'] . '</option>';
+          }
+        }
+        echo '</select>
           </label>
         </div>
         <button class="button submit">Подтвердить</button>

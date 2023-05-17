@@ -1,6 +1,6 @@
 <? require_once 'vendor/components/head.php' ?>
 <?
-$sql = 'SELECT * FROM users WHERE login=?';
+$sql = 'SELECT *, DATE_FORMAT(`reg`, "     %d.%m.%Y     ") as `reg` FROM users WHERE login=?';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_REQUEST['user']]);
 
@@ -29,7 +29,7 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
 
 <body>
   <div class="wrapper">
-    <? require_once 'vendor/components/header.php' ?>
+    <? require_once 'vendor/components/header.php' ?><? require_once 'vendor/components/auth_modal.php' ?>
     <main class="main">
       <div class="content">
         <div class="profile">
@@ -57,9 +57,12 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
                                                   echo $day;
                                                 }
                                               }
-                                              ?></p>
+                                              ?>, начиная с <? echo $user['reg'] ?></p>
             <p class="info__el">Создал <? echo $postsCount + $threadsCount ?> постов, из них <? echo $threadsCount ?> тредов</p>
             <?
+            if ($_SESSION['user']['login'] == $user['login']) {
+              echo '<a href="profile_edit.php?user=' . $user['login'] . '"><button class="button">Изменить профиль</button></a>';
+            }
             if ($_SESSION['user']['login'] == $user['login'] || $_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'mastadmin') {
               echo '<a href="vendor/scripts/users/delete.php?user=' . $user['login'] . '"><button class="button">Удалить профиль</button></a>';
             }
@@ -78,13 +81,14 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
           ?>
           <?
           for ($i = 0; $i < count($threads); $i++) {
-            $sql = 'SELECT avatar FROM users WHERE login=?';
+            $sql = 'SELECT login, avatar FROM users WHERE login=?';
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$threads[$i]['author']]);
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             echo '
                   <div id="' .  $threads[$i]['id'] . '" class="post">
+                  <div class="post__desc">  
                     <div class="post__info">';
             if ($user['avatar'] != '') {
               echo ' <a class="post__author" href="profile.php?user=' . $threads[$i]['author'] . '"><img class="circle" src="' . $user['avatar'] . '" alt=""></a>';
@@ -92,10 +96,18 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
               echo ' <a class="post__author" href="profile.php?user=' . $threads[$i]['author'] . '"><img class="circle"src="assets/images/user_icon.png" alt="" class=""></a>';
             }
             echo '
-                      <a class="post__author" href="profile.php?user=' . $threads[$i]['author'] . '">' . $threads[$i]['author'] . '</a>
-                      <p class="post__date">' . $threads[$i]['date'] . '</p>
-                      <a class="post__id" href="thread.php?thread=' . $threads[$i]['id'] . '">#' . $threads[$i]['id'] . '</a>
-                    </div>
+              <a class="post__author" href="profile.php?user=' . $threads[$i]['author'] . '">' . $threads[$i]['author'] . '</a>
+              <p class="post__date">' . $threads[$i]['date'] . '</p>
+              <a class="post__id" href="thread.php?thread=' . $threads[$i]['id'] . '">#' . $threads[$i]['id'] . '</a>
+              </div>
+              <div class="post__interactive">';
+            if ($_SESSION['user']['role'] == 'admin' ||  $_SESSION['user']['role'] == 'mastadmin' || $_SESSION['user']['login'] == $user['login']) {
+              echo '
+                  <a href="vendor/scripts/posts/delete.php?id=' . $posts[$i]['id'] . '&from=board.php?board=' . $board['value'] . '"><img class="delete" src="assets/images/close_icon.png" alt=""></a>
+                ';
+            }
+            echo ' </div>      
+                  </div>
                     <div class="post__content">';
             if ($threads[$i]['pic']) {
               echo '<img class="post__image" src="' . $threads[$i]['pic'] . '" alt="">';
@@ -145,9 +157,13 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
           ?>
         </div>
       </div>
-      <? require_once 'vendor/components/nav.php' ?>
+      <?
+      require_once 'vendor/components/nav.php';
+      require_once 'vendor/components/scroll_buttons.php';
+      ?>
       <script src="assets/js/transition.js"></script>
       <script src="assets/js/swap_posts.js"></script>
+      <script src="assets/js/scroll_buttons.js" defer></script>
     </main>
   </div>
 </body>

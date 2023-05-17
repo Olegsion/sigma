@@ -27,7 +27,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <body>
   <div class="wrapper">
-    <? require_once 'vendor/components/header.php' ?>
+    <? require_once 'vendor/components/header.php' ?><? require_once 'vendor/components/auth_modal.php' ?>
     <main class="main">
       <div class="content">
         <div class="interactive">
@@ -128,9 +128,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <?
     $page = basename(__FILE__);
     require_once 'vendor/components/error_form.php';
+    require_once 'vendor/components/scroll_buttons.php';
     ?>
     <script defer src="assets/js/previewImage.js"></script>
     <script defer src="assets/js/reply.js"></script>
+    <script src="assets/js/scroll_buttons.js" defer></script>
   </div>
 </body>
 

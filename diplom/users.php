@@ -19,7 +19,7 @@ $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
   <div class="wrapper">
-    <? require_once 'vendor/components/header.php' ?>
+    <? require_once 'vendor/components/header.php' ?><? require_once 'vendor/components/auth_modal.php' ?>
     <main class="main">
       <div class="content">
         <div class="interactive">
@@ -84,8 +84,12 @@ $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
           ?>
         </div>
       </div>
-      <? require_once 'vendor/components/nav.php' ?>
+      <?
+      require_once 'vendor/components/nav.php';
+      require_once 'vendor/components/scroll_buttons.php';
+      ?>
       <script defer src="assets/js/swap_users.js"></script>
+      <script src="assets/js/scroll_buttons.js" defer></script>
     </main>
   </div>
 </body>

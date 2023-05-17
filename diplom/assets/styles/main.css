@@ -7,13 +7,17 @@
 }
 
 body::-webkit-scrollbar {
-  width: 0.7rem;
+  width: 0.9rem;
   background-color: #633318;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color);
+  background-color: #ad5c2dc0;
   border-radius: 2px;
+}
+
+body::-webkit-scrollbar-thumb:active {
+  background-color: var(--accent-color);
 }
 
 html,
@@ -102,8 +106,8 @@ body {
 
 .nav {
   position: absolute;
-  top: 10%;
   right: 0;
+  top: 10%;
   width: 15%;
   height: 90%;
   display: flex;
@@ -115,6 +119,19 @@ body {
   background-color: var(--background-color);
   overflow-y: auto;
   direction: rtl;
+}
+
+.page-nav {
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.pages:hover {
+  color: var(--accent-color);
 }
 
 .nav::-webkit-scrollbar {
@@ -154,4 +171,10 @@ body {
   .header {
     padding: 0.5rem 0.2rem;
   }
+}
+.label {
+}
+.label__desc {
+}
+.input {
 }

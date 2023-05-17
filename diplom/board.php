@@ -1,21 +1,40 @@
 <? require_once 'vendor/components/head.php' ?>
 <?
+$page = $_REQUEST['page'];
+$limit = 30;
+$offset = ($page - 1) * $limit;
+
 $sql = 'SELECT * FROM boards WHERE value=?';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_REQUEST['board']]);
 
 $board = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE board=? AND thread_id=? ORDER BY id DESC';
+$sql = 'SELECT * FROM posts WHERE board=?';
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$board['value'], 'self']);
+$stmt->execute([$board['value']]);
 
-$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$postsLength = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if ($page == 1) {
+  $sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE board=? AND thread_id=? ORDER BY id DESC LIMIT ' . $limit;
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([$board['value'], 'self']);
+
+  $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+  $sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE board=? AND thread_id=? ORDER BY id DESC LIMIT ' . $limit . ' OFFSET ' . $offset;
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([$board['value'], 'self']);
+
+  $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 ?>
 
 <body>
   <div class="wrapper">
-    <? require_once 'vendor/components/header.php' ?>
+    <? require_once 'vendor/components/header.php' ?><? require_once 'vendor/components/auth_modal.php' ?>
     <main class="main">
       <div class="content">
         <div class="interactive">
@@ -48,17 +67,39 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="posts">
           <?
+          if (count($postsLength) > $limit) {
+            $pages = ceil(count($postsLength) / $limit);
+            $next = $page + 1;
+            $prev = $page - 1;
+
+            echo  '<div class="page-nav">';
+            if ($page == 1) {
+              echo '<a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>';
+            } else if ($page == $pages) {
+              echo '<a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>';
+            } else {
+              echo '
+            <a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>
+            <a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>
+            ';
+            }
+            echo '</div>
+            ';
+          }
+          ?>
+          <?
           if (count($posts) == 0) {
             echo '<p style="width:85%;text-align:center;">Здесь пока нет постов</p>';
           }
           ?>
           <?
           for ($i = 0; $i < count($posts); $i++) {
-            $sql = 'SELECT avatar FROM users WHERE login=?';
+            $sql = 'SELECT login, avatar FROM users WHERE login=?';
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$posts[$i]['author']]);
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
             echo '
               <div id="' .  $posts[$i]['id'] . '" class="post">
               <div class="post__desc">  
@@ -69,9 +110,9 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   <a class="post__id" href="thread.php?thread=' . $posts[$i]['id'] . '">#' . $posts[$i]['id'] . '</a>
                 </div>
               <div class="post__interactive">';
-            if ($_SESSION['user']['role'] == 'admin' ||  $_SESSION['user']['role'] == 'mastadmin') {
+            if ($_SESSION['user']['role'] === 'admin' ||  $_SESSION['user']['role'] == 'mastadmin' || $_SESSION['user']['login'] == $user['login']) {
               echo '
-                    <a href="vendor/scripts/posts/delete.php?id=' . $posts[$i]['id'] . '&from=board.php?board=' . $board['value'] . '"><img class="delete" src="assets/images/close_icon.png" alt=""></a>
+                    <a href="vendor/scripts/posts/delete.php?id=' . $posts[$i]['id'] . '&from=board.php?board=' . $board['value'] . '&page=' . $_REQUEST['page'] . '"><img class="delete" src="assets/images/close_icon.png" alt=""></a>
                     ';
             }
             echo ' </div>
@@ -86,6 +127,27 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ';
           }
           ?>
+          <?
+          if (count($postsLength) > $limit) {
+            $pages = ceil(count($postsLength) / $limit);
+            $next = $page + 1;
+            $prev = $page - 1;
+
+            echo  '<div class="page-nav">';
+            if ($page == 1) {
+              echo '<a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>';
+            } else if ($page == $pages) {
+              echo '<a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>';
+            } else {
+              echo '
+            <a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>
+            <a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095;</a>
+            ';
+            }
+            echo '</div>
+            ';
+          }
+          ?>
         </div>
       </div>
       <? require_once 'vendor/components/nav.php' ?>
@@ -93,8 +155,11 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?
     $page = basename(__FILE__);
     require_once 'vendor/components/error_form.php';
+    require_once 'vendor/components/scroll_buttons.php';
     ?>
     <script defer src="assets/js/previewImage.js"></script>
+    <script src="assets/js/scroll_buttons.js" defer></script>
+
   </div>
 </body>
 

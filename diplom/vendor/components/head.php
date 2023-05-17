@@ -11,5 +11,6 @@
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
   <script src="assets/js/profile.js" defer></script>
   <script src="assets/js/nav_scroll.js" defer></script>
+  <script src="assets/js/auth_modal.js" defer></script>
   <title>MooChan</title>
 </head>

@@ -7,14 +7,14 @@ if ($_SESSION['user']) {
 
 <body>
   <div class="wrapper">
-    <? require_once 'vendor/components/header.php' ?>
+    <? require_once 'vendor/components/header.php' ?><? require_once 'vendor/components/auth_modal.php' ?>
     <main class="main">
       <form class="form" action="vendor/scripts/users/reg.php" method="POST" enctype="multipart/form-data" autocomplete="off">
         <h1 class="form-heading">Регистрация</h1>
         <div class="labels">
           <label class="label">
             <span class="label__desc">Почта</span>
-            <input class="input" name="email" type="text" placeholder="Введите почту" pattern="[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*" autocomplete="off" required>
+            <input class="input" name="email" type="email" placeholder="Введите почту" pattern="[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*" autocomplete="off" required>
           </label>
           <label class="label">
             <span class="label__desc">Логин</span>

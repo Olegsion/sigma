@@ -7,7 +7,7 @@ if ($_SESSION['user']) {
 
 <body>
   <div class="wrapper">
-    <? require_once 'vendor/components/header.php' ?>
+    <? require_once 'vendor/components/header.php' ?><? require_once 'vendor/components/auth_modal.php' ?>
     <main class="main">
       <form class="form" action="vendor/scripts/users/login.php" method="POST" autocomplete="off">
         <h1 class="form-heading">Авторизация</h1>
@@ -21,6 +21,7 @@ if ($_SESSION['user']) {
             <input class="input" name="password" type="password" minlength="6" maxlength="30" placeholder="Введите ваш пароль" pattern=".{6,30}" autocomplete="off" required>
           </label>
         </div>
+          <a class="nav__link" href="recovery.php">Забыли пароль?</a>
         <button class="button submit">Войти</button>
       </form>
     </main>

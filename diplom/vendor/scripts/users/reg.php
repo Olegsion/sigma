@@ -51,7 +51,7 @@ if ($user) {
     $_SESSION['user']['login'] = $user['login'];
     $_SESSION['user']['role'] = $user['role'];
     $_SESSION['user']['avatar'] = $user['avatar'];
-
+    $_SESSION['user']['email'] = $user['email'];
 
     header('Location: ../../../');
   }
