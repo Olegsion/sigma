@@ -46,6 +46,7 @@
 .settings__link {
   font-size: 1rem;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .settings__link:hover {

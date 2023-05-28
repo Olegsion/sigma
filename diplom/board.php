@@ -49,7 +49,7 @@ if ($page == 1) {
                     <div class="labels">
                       <label class="label">
                           <span class="label__desc">Текст</span>
-                          <textarea class="input textarea" name="body" maxlength="1500" autocomplete="off" required></textarea>
+                          <textarea class="input textarea" name="body" minlenght="6" maxlength="1500" autocomplete="off" required></textarea>
                       </label>
                       <label class="label file">
                           <span class="label__desc">Картинка</span>
@@ -155,11 +155,8 @@ if ($page == 1) {
     <?
     $page = basename(__FILE__);
     require_once 'vendor/components/error_form.php';
-    require_once 'vendor/components/scroll_buttons.php';
     ?>
     <script defer src="assets/js/previewImage.js"></script>
-    <script src="assets/js/scroll_buttons.js" defer></script>
-
   </div>
 </body>
 

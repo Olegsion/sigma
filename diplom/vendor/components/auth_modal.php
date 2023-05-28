@@ -1,5 +1,5 @@
 <?
-if (isset($_SESSION['user'])) {
+if ($_SESSION['user']['login'] == NULL) {
   echo '
   <div class="auth_modal">
   <h2>Вы не авторизованны</h2>

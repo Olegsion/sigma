@@ -19,7 +19,7 @@ if ($lenght > 0) {
 
 $sql = 'SELECT * FROM users WHERE email=?';
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$_POST['email']]);
+$stmt->execute([addslashes($_POST['email'])]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -29,7 +29,7 @@ if ($user) {
 } else {
   $sql = 'SELECT * FROM users WHERE login=?';
   $stmt = $pdo->prepare($sql);
-  $stmt->execute([$_POST['login']]);
+  $stmt->execute([addslashes($_POST['login'])]);
 
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -40,18 +40,18 @@ if ($user) {
 
     $sql = 'INSERT INTO users (login, avatar, email, password, reg, hash) VALUES (?,?,?,?,?,"")';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_POST['login'], $fileName, $_POST['email'], $_POST['password'], date('Y-m-d')]);
+    $stmt->execute([addslashes($_POST['login']), $fileName, addslashes($_POST['email']), addslashes($_POST['password']), date('Y-m-d')]);
 
     $sql = 'SELECT * FROM users WHERE login=? AND password=?';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_POST['login'], $_POST['password']]);
+    $stmt->execute([addslashes($_POST['login']),  addslashes($_POST['password'])]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $_SESSION['user']['login'] = $user['login'];
     $_SESSION['user']['role'] = $user['role'];
-    $_SESSION['user']['avatar'] = $user['avatar'];
     $_SESSION['user']['email'] = $user['email'];
+    $_SESSION['user']['avatar'] = $user['avatar'];
 
     header('Location: ../../../');
   }

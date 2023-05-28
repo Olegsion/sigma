@@ -8,7 +8,7 @@ window.addEventListener("scroll", () => {
   } else {
     nav.style.height = "90%";
   }
-  if (window.pageYOffset > head.bottom + 75) {
+  if (window.pageYOffset > head.bottom + 80) {
     nav.style.top = "0";
     nav.style.position = "fixed";
   } else {

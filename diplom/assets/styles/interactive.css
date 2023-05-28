@@ -176,7 +176,7 @@
 }
 
 .button:hover {
-  scale: 105%;
+  scale: 102.5%;
   background: var(--gradient);
 }
 

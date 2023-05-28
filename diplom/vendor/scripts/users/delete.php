@@ -8,8 +8,6 @@ $stmt->execute([$_REQUEST['user']]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-unlink('../../../' . $user['avatar']);
-
 $sql = 'DELETE FROM posts WHERE author=?';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$user['login']]);
@@ -19,7 +17,11 @@ if ($_SESSION['user']['login'] == $user['login']) {
   header('Location: ../../../');
 }
 
-$sql = 'DELETE FROM users WHERE login=?';
+if ($_SESSION['user']['avatar'] != 'assets/images/user_icon.png') {
+  unlink('../../../' . $user['avatar']);
+}
+
+$sql = 'UPDATE users SET ban=1 WHERE login=?';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_REQUEST['user']]);
 

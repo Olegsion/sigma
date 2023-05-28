@@ -1,4 +1,5 @@
-<? require_once 'vendor/components/head.php' ?>
+<?
+require_once 'vendor/components/head.php' ?>
 <?
 if ($_SESSION['user']['role'] != 'admin' && $_SESSION['user']['role'] != 'mastadmin') {
   header('Location: /');

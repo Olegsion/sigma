@@ -1,4 +1,5 @@
-<? require_once 'vendor/components/head.php' ?>
+<?
+require_once 'vendor/components/head.php' ?>
 <?
 $sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date`FROM posts WHERE id=?';
 $stmt = $pdo->prepare($sql);
@@ -42,7 +43,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="labels">
                       <label class="label">
                           <span class="label__desc">Текст</span>
-                          <textarea class="input textarea" name="body" maxlength="1500" autocomplete="off" required></textarea>
+                          <textarea class="input textarea" name="body"  minlenght="6" maxlength="1500" autocomplete="off" required></textarea>
                       </label>
                       <label class="label file">
                           <span class="label__desc">Картинка</span>
@@ -128,11 +129,10 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <?
     $page = basename(__FILE__);
     require_once 'vendor/components/error_form.php';
-    require_once 'vendor/components/scroll_buttons.php';
+
     ?>
     <script defer src="assets/js/previewImage.js"></script>
     <script defer src="assets/js/reply.js"></script>
-    <script src="assets/js/scroll_buttons.js" defer></script>
   </div>
 </body>
 

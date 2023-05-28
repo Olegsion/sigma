@@ -1,4 +1,5 @@
-<? require_once 'vendor/components/head.php' ?>
+<?
+require_once 'vendor/components/head.php' ?>
 <?
 if ($_SESSION['user']['role'] != 'admin' && $_SESSION['user']['role'] != 'mastadmin') {
   header('Location: /');
@@ -21,8 +22,8 @@ $themes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <h1 class="board-heading">Темы</h1>
           </div>
           <div class="settings">
-            <a href="tb_edit.php?new_theme" class="nav__link">Добавить тему</a>
-            <a href="tb_edit.php?new_board" class="nav__link">Добавить доску</a>
+            <a href="tb_edit.php?new_theme" class="settings__link">Добавить тему</a>
+            <a href="tb_edit.php?new_board" class="settings__link">Добавить доску</a>
           </div>
         </div>
         <div class="themes">
@@ -72,10 +73,9 @@ $themes = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </div>
       <?
       require_once 'vendor/components/nav.php';
-      require_once 'vendor/components/scroll_buttons.php';
+
       ?>
       <script defer src="assets/js/swap_boards.js"></script>
-      <script src="assets/js/scroll_buttons.js" defer></script>
     </main>
   </div>
 </body>

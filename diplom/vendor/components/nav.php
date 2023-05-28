@@ -19,6 +19,11 @@ $themes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ';
   }
   ?>
+  <div class="nav__section">
+    <p class="section__name">Информация</p>
+    <a href="/" class="nav__link">Главная</a>
+    <a href="rules.php" class="nav__link">Правила форума</a>
+  </div>
   <?
   for ($i = 0; $i < count($themes); $i++) {
     echo '<div class="nav__section">

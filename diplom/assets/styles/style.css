@@ -4,6 +4,7 @@
 @import url("users.css");
 @import url("themes.css");
 @import url("interactive.css");
+@import url("index.css");
 
 @font-face {
   font-family: "Rubik";
@@ -17,7 +18,6 @@
 
 :root {
   --font-color: #ccc;
-  --accent-font-color: #121116;
   --background-color: #121116;
   --input-color: #1a1a1a;
   --accent-color: #c2622a;

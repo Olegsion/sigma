@@ -19,7 +19,7 @@ if ($lenght > 0) {
 
 $sql = 'INSERT INTO posts(board, author, body, pic, thread_id) VALUES(?,?,?,?,?)';
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$_REQUEST['board'], $_SESSION['user']['login'], $_POST['body'], $fileName, $_REQUEST['thread_id']]);
+$stmt->execute([$_REQUEST['board'], $_SESSION['user']['login'], addslashes($_POST['body']), $fileName, $_REQUEST['thread_id']]);
 
 if ($_REQUEST['from']) {
   header('Location: ../../../' . $_REQUEST['from']);

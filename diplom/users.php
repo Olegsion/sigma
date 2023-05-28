@@ -1,16 +1,17 @@
-<? require_once 'vendor/components/head.php' ?>
+<?
+require_once 'vendor/components/head.php' ?>
 <?
 if ($_SESSION['user']['role'] != 'admin' && $_SESSION['user']['role'] != 'mastadmin') {
   header('Location: /');
 }
 
-$sql = 'SELECT * FROM users WHERE role="user"';
+$sql = 'SELECT * FROM users WHERE role="user" AND ban <> 1';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([]);
 
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT * FROM users WHERE role="admin"';
+$sql = 'SELECT * FROM users WHERE role="admin" AND ban <> 1';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([]);
 
@@ -86,10 +87,9 @@ $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </div>
       <?
       require_once 'vendor/components/nav.php';
-      require_once 'vendor/components/scroll_buttons.php';
+
       ?>
       <script defer src="assets/js/swap_users.js"></script>
-      <script src="assets/js/scroll_buttons.js" defer></script>
     </main>
   </div>
 </body>

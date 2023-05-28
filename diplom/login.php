@@ -1,4 +1,5 @@
-<? require_once 'vendor/components/head.php' ?>
+<?
+require_once 'vendor/components/head.php' ?>
 <?
 if ($_SESSION['user']) {
   header('Location: /');
@@ -21,7 +22,7 @@ if ($_SESSION['user']) {
             <input class="input" name="password" type="password" minlength="6" maxlength="30" placeholder="Введите ваш пароль" pattern=".{6,30}" autocomplete="off" required>
           </label>
         </div>
-          <a class="nav__link" href="recovery.php">Забыли пароль?</a>
+        <a class="nav__link" href="recovery.php">Забыли пароль?</a>
         <button class="button submit">Войти</button>
       </form>
     </main>

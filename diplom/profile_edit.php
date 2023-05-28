@@ -1,4 +1,5 @@
-<? require_once 'vendor/components/head.php' ?>
+<?
+require_once 'vendor/components/head.php' ?>
 <?
 if ($_SESSION['user']['login'] != $_REQUEST['user']) {
   header('Location: /');
@@ -22,7 +23,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <span class="label__desc">Картинка профиля</span>
             <img class="preview" src="<? echo $user['avatar'] ?>" />
             <span class="button submit">Изменить</span>
-            <input class="input-image" hidden type="file" accept="image/jpeg, image/jpg, image/png, image/gif" name="avatar" onchange="previewFile()">
+            <input class="input-image" hidden type="file" value="<? echo $user['avatar'] ?>" accept="image/jpeg, image/jpg, image/png, image/gif" name="avatar" onchange="previewFile()">
           </label>
           <label class="label">
             <span class="label__desc">Почта</span>
@@ -32,12 +33,17 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <span class="label__desc">Логин</span>
             <input class="input" name="login" type="text" minlength="6" maxlength="25" placeholder="6-25 латинских букв или цифр" pattern="[a-zA-Z0-9]{6,25}" autocomplete="off" value="<? echo $user['login'] ?>" required>
           </label>
+          <label class="label">
+            <span class="label__desc">Пароль</span>
+            <input class="input" name="password" type="password" minlength="6" maxlength="30" placeholder="Введите для подтвеждения изменений" pattern=".{6,30}" autocomplete="off" required>
+          </label>
         </div>
+        <a class="nav__link" href="recovery.php">Изменить пароль</a>
         <button class="button submit">Подтвердить</button>
       </form>
     </main>
     <?
-    $page = basename(__FILE__) .'?user=' . $_REQUEST['user'];
+    $page = basename(__FILE__) . '?user=' . $_REQUEST['user'];
     require_once 'vendor/components/error_form.php';
     ?>
     <script defer src="assets/js/previewImage.js"></script>

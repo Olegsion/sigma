@@ -1,4 +1,7 @@
 <?
 session_start();
-
-$pdo = new PDO('mysql:host=localhost; dbname=diplom', 'root', '');
+try {
+  $pdo = new PDO('mysql:host=localhost; dbname=diplom', 'root', '');
+} catch (PDOException $e) {
+  echo $e->getMessage();
+}

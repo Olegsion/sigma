@@ -1,4 +1,5 @@
-<? require_once 'vendor/components/head.php' ?>
+<?
+require_once 'vendor/components/head.php' ?>
 <?
 $sql = 'SELECT *, DATE_FORMAT(`reg`, "     %d.%m.%Y     ") as `reg` FROM users WHERE login=?';
 $stmt = $pdo->prepare($sql);
@@ -103,7 +104,7 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
               <div class="post__interactive">';
             if ($_SESSION['user']['role'] == 'admin' ||  $_SESSION['user']['role'] == 'mastadmin' || $_SESSION['user']['login'] == $user['login']) {
               echo '
-                  <a href="vendor/scripts/posts/delete.php?id=' . $posts[$i]['id'] . '&from=board.php?board=' . $board['value'] . '"><img class="delete" src="assets/images/close_icon.png" alt=""></a>
+                  <a href="vendor/scripts/posts/delete.php?id=' . $threads[$i]['id'] . '&from=profile.php?user=' . $user['login'] . '"><img class="delete" src="assets/images/close_icon.png" alt=""></a>
                 ';
             }
             echo ' </div>      
@@ -127,24 +128,33 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
           ?>
           <?
           for ($i = 0; $i < count($posts); $i++) {
-            $sql = 'SELECT avatar FROM users WHERE login=?';
+            $sql = 'SELECT avatar, login FROM users WHERE login=?';
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$posts[$i]['author']]);
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             echo '
             <div id="' .  $posts[$i]['id'] . '" class="post">
-            <div class="post__info">';
+            <div class="post__desc">  
+              <div class="post__info">';
             if ($user['avatar'] != '') {
-              echo '<a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle" src="' . $user['avatar'] . '" alt=""></a>';
+              echo ' <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle" src="' . $user['avatar'] . '" alt=""></a>';
             } else {
-              echo '<a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle" src="assets/images/user_icon.png" alt="" class=""></a>';
+              echo ' <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '"><img class="circle"src="assets/images/user_icon.png" alt="" class=""></a>';
             }
             echo '
-                <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '">' . $posts[$i]['author'] . '</a>
-                <p class="post__date">' . $posts[$i]['date'] . '</p>
-                <a class="post__id" href="thread.php?thread=' . $posts[$i]['thread_id'] . '">#' . $posts[$i]['id'] . '</a>
-              </div>
+        <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '">' . $posts[$i]['author'] . '</a>
+        <p class="post__date">' . $posts[$i]['date'] . '</p>
+        <a class="post__id" href="thread.php?thread=' . $posts[$i]['id'] . '">#' . $posts[$i]['id'] . '</a>
+        </div>
+        <div class="post__interactive">';
+            if ($_SESSION['user']['role'] == 'admin' ||  $_SESSION['user']['role'] == 'mastadmin' || $_SESSION['user']['login'] == $user['login']) {
+              echo '
+            <a href="vendor/scripts/posts/delete.php?id=' . $posts[$i]['id'] . '&from=profile.php?user=' . $user['login'] . '"><img class="delete" src="assets/images/close_icon.png" alt=""></a>
+          ';
+            }
+            echo ' </div>      
+            </div>
               <div class="post__content">';
             if ($posts[$i]['pic']) {
               echo '<img class="post__image" src="' . $posts[$i]['pic'] . '" alt="">';
@@ -159,11 +169,10 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
       </div>
       <?
       require_once 'vendor/components/nav.php';
-      require_once 'vendor/components/scroll_buttons.php';
+
       ?>
       <script src="assets/js/transition.js"></script>
       <script src="assets/js/swap_posts.js"></script>
-      <script src="assets/js/scroll_buttons.js" defer></script>
     </main>
   </div>
 </body>

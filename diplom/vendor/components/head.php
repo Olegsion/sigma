@@ -1,4 +1,5 @@
 <? session_start() ?>
+<? $login = $_SESSION['user']['login']; ?>
 <? require_once 'vendor/scripts/db_connect.php'; ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -12,5 +13,8 @@
   <script src="assets/js/profile.js" defer></script>
   <script src="assets/js/nav_scroll.js" defer></script>
   <script src="assets/js/auth_modal.js" defer></script>
+  <script src="assets/js/scroll_buttons.js" defer></script>
   <title>MooChan</title>
 </head>
+<? require_once 'vendor/components/scroll_buttons.php'; ?>
+<? require_once 'vendor/scripts/session_update.php'; ?>

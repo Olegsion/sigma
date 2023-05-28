@@ -1,9 +1,5 @@
-<? require_once 'vendor/components/head.php' ?>
 <?
-if ($_SESSION['user']) {
-  header('Location: /');
-}
-?>
+require_once 'vendor/components/head.php' ?>
 
 <body>
   <div class="wrapper">
