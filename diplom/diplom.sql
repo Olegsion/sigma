@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 06 2023 г., 15:46
+-- Время создания: Июн 07 2023 г., 21:40
 -- Версия сервера: 8.0.30
 -- Версия PHP: 7.2.34
 
@@ -40,10 +40,11 @@ CREATE TABLE `boards` (
 --
 
 INSERT INTO `boards` (`id`, `name`, `value`, `description`, `theme`) VALUES
-(1, 'Запчасти', 'parts', 'Обсуждаем различные запчасти и места, где их лучше закупать.', 'cars'),
-(2, 'Иномарки', 'foreign_cars', 'Иномарки обсуждаем.', 'cars'),
-(3, 'Фантастика', 'fantastic', 'Обсуждаем все любые книги в жанре фантастика', 'books'),
-(4, 'Детективы', 'detective', 'Обсуждаем книги в жанре детектив', 'books');
+(1, 'Картины🎨', 'paintings', 'Обсуждаем классических и современных художников и их произведения', 'visual_art'),
+(2, 'Фотография📷', 'photo', 'Обсуждаем фотографов  и их фотокарточки  ', 'visual_art'),
+(3, 'Скульптура🗽', 'sculpture', 'Обсуждаем скульптуры, барельефы и прочее', 'visual_art'),
+(4, 'Классика🎻', 'classic', 'Классическая музыка, её авторы и исполнители. ', 'music'),
+(5, 'Джаз🎷', 'jazz', 'Обсуждаем джаз и его ответвления', 'music');
 
 -- --------------------------------------------------------
 
@@ -58,17 +59,9 @@ CREATE TABLE `posts` (
   `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `pic` varchar(255) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `thread_id` varchar(255) NOT NULL
+  `thread_id` varchar(255) NOT NULL,
+  `ban` varchar(255) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Дамп данных таблицы `posts`
---
-
-INSERT INTO `posts` (`id`, `board`, `author`, `body`, `pic`, `date`, `thread_id`) VALUES
-(20359, 'detective', 'mastadmin', 'Решил вкатиться в творчество Агаты Кристи.\n\nКакие книги лучшие по мнению критиков и читателей? Что посоветуете прочесть в первую очередь? ', 'uploads/posts_images/1683376931_testpic.jpg', '2023-05-06 18:42:11', 'self'),
-(20360, 'detective', 'mastadmin', '<span class=\'reply\'>#20359</span>\r\n\r\nЛучше сам прочти и составь своё мнение.', '', '2023-05-06 18:43:36', '20359'),
-(20361, 'parts', 'user01', 'Хочу купить японца.\r\n\r\nИмеет ли смысл брать в салоне или лучше взять подержанный лет 5?\r\nКакие подводные?', 'uploads/posts_images/1683377109_ARMMcRSWtCQ.jpg', '2023-05-06 18:45:09', 'self');
 
 -- --------------------------------------------------------
 
@@ -87,8 +80,8 @@ CREATE TABLE `themes` (
 --
 
 INSERT INTO `themes` (`id`, `name`, `value`) VALUES
-(1, 'Автомобили', 'cars'),
-(2, 'Книги', 'books');
+(1, 'Изобразительное искусство', 'visual_art'),
+(2, 'Музыка', 'music');
 
 -- --------------------------------------------------------
 
@@ -104,16 +97,18 @@ CREATE TABLE `users` (
   `password` varchar(250) NOT NULL,
   `reg` date NOT NULL,
   `role` varchar(255) NOT NULL DEFAULT 'user',
-  `hash` varchar(250) NOT NULL
+  `hash` varchar(250) NOT NULL,
+  `ban` varchar(255) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `login`, `avatar`, `email`, `password`, `reg`, `role`, `hash`) VALUES
-(1, 'mastadmin', 'uploads/users_images/1683092603__tPWx6ejhXU.jpg', 'mastadmin@mail.ru', 'mastadmin', '2021-12-01', 'mastadmin', ''),
-(2, 'user01', 'assets/images/user_icon.png', 'user01@mail.ru', 'user01', '2023-05-06', 'user', '');
+INSERT INTO `users` (`id`, `login`, `avatar`, `email`, `password`, `reg`, `role`, `hash`, `ban`) VALUES
+(1, 'masteradmin', 'uploads/users_images/1685288538__tPWx6ejhXU.jpg', 'maxloh2007@gmail.com', 'c0a9dff168485ea56640b36eb19077d7b8f87f4f', '2023-03-21', 'mastadmin', 'a60393892b6ddb717cfbda3a99263b1ff8c8d5c6832af0ed827c17ad9a0d5c28', '0'),
+(2, 'basedChad2007', 'assets/images/user_icon.png', 'based@chad.com', 'f7c7415a3009d95a60fa2a9dd1b5e671a45432be', '2023-05-28', 'user', '', '0'),
+(3, 'user02', 'uploads/users_images/1686139593_Anti-cringe_sprey.jpg', 'user02@mail.ru', 'a7659675668c2b34f0a456dbaa508200340dc36c', '2023-06-07', 'user', '', '0');
 
 --
 -- Индексы сохранённых таблиц
@@ -158,13 +153,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `boards`
 --
 ALTER TABLE `boards`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20362;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2246;
 
 --
 -- AUTO_INCREMENT для таблицы `themes`
