@@ -28,11 +28,11 @@ if ($_SESSION['user']) {
           <label class="label file">
             <span class="label__desc">Картинка профиля</span>
             <img class="preview" src="" />
-            <span class="button submit">Добавить</span>
+            <span class="button submit pic">Добавить</span>
             <input class="input-image" hidden type="file" accept="image/jpeg, image/jpg, image/png, image/gif" name="avatar" onchange="previewFile()">
           </label>
         </div>
-        <button class="button submit">Зарегестрироваться</button>
+        <button class="button submit">Зарегистрироваться</button>
       </form>
     </main>
     <?

@@ -11,7 +11,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($user) {
   $sql = 'UPDATE users SET password=? WHERE hash=?';
   $stmt = $pdo->prepare($sql);
-  $stmt->execute([$_POST['password'], $_REQUEST['hash']]);
+  $stmt->execute([sha1($_POST['password']), $_REQUEST['hash']]);
 
   $_SESSION['message'] = "Пароль был успешно изменён!";
 

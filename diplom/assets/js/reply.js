@@ -6,7 +6,7 @@ const textarea = document.querySelector(".textarea");
 idArr.forEach((id) => {
   id.addEventListener("click", () => {
     let link = id.innerHTML;
-    textarea.value += "<span class='reply'>" + link + "</span>" + `\n\n`;
+    textarea.value += `<span class="reply">` + link + `</span>` + `\n\n`;
     textarea.focus();
     window.scrollTo(0, 0);
   });

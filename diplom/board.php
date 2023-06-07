@@ -10,26 +10,25 @@ $stmt->execute([$_REQUEST['board']]);
 
 $board = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT * FROM posts WHERE board=?';
+$sql = 'SELECT * FROM posts WHERE board=? AND ban <> 1 AND thread_id="self"';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$board['value']]);
 
 $postsLength = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if ($page == 1) {
-  $sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE board=? AND thread_id=? ORDER BY id DESC LIMIT ' . $limit;
+  $sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE board=? AND thread_id=? AND ban<>1 AND thread_id="self" ORDER BY id DESC LIMIT ' . $limit;
   $stmt = $pdo->prepare($sql);
   $stmt->execute([$board['value'], 'self']);
 
   $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
-  $sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE board=? AND thread_id=? ORDER BY id DESC LIMIT ' . $limit . ' OFFSET ' . $offset;
+  $sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE board=? AND thread_id=? AND ban<>1  AND thread_id="self" ORDER BY id DESC LIMIT ' . $limit . ' OFFSET ' . $offset;
   $stmt = $pdo->prepare($sql);
   $stmt->execute([$board['value'], 'self']);
 
   $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 ?>
 
 <body>
@@ -54,7 +53,7 @@ if ($page == 1) {
                       <label class="label file">
                           <span class="label__desc">Картинка</span>
                           <img class="preview" src="" />
-                          <span class="button submit">Добавить</span>
+                          <span class="button submit pic">Добавить</span>
                           <input class="input-image" hidden type="file" accept="image/jpeg, image/jpg, image/png, image/gif" name="pic" onchange="previewFile()">
                       </label>
                     </div>
@@ -74,13 +73,13 @@ if ($page == 1) {
 
             echo  '<div class="page-nav">';
             if ($page == 1) {
-              echo '<a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>';
+              echo '<a class="pages" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>';
             } else if ($page == $pages) {
-              echo '<a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>';
+              echo '<a class="pages" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>';
             } else {
               echo '
-            <a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>
-            <a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>
+            <a class="pages" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>
+            <a class="pages" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>
             ';
             }
             echo '</div>
@@ -110,6 +109,11 @@ if ($page == 1) {
                   <a class="post__id" href="thread.php?thread=' . $posts[$i]['id'] . '">#' . $posts[$i]['id'] . '</a>
                 </div>
               <div class="post__interactive">';
+            // if ($_SESSION['user']['role'] === 'admin' ||  $_SESSION['user']['role'] == 'mastadmin') {
+            //   echo '
+            //           <a href="vendor/scripts/posts/ban.php?id=' . $posts[$i]['id'] . '&from=board.php?board=' . $board['value'] . '&page=' . $_REQUEST['page'] . '"><img class="delete" src="assets/images/ban.png" alt=""></a>
+            //           ';
+            // }
             if ($_SESSION['user']['role'] === 'admin' ||  $_SESSION['user']['role'] == 'mastadmin' || $_SESSION['user']['login'] == $user['login']) {
               echo '
                     <a href="vendor/scripts/posts/delete.php?id=' . $posts[$i]['id'] . '&from=board.php?board=' . $board['value'] . '&page=' . $_REQUEST['page'] . '"><img class="delete" src="assets/images/close_icon.png" alt=""></a>
@@ -135,13 +139,13 @@ if ($page == 1) {
 
             echo  '<div class="page-nav">';
             if ($page == 1) {
-              echo '<a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>';
+              echo '<a class="pages" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095</a>';
             } else if ($page == $pages) {
-              echo '<a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>';
+              echo '<a class="pages" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>';
             } else {
               echo '
-            <a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>
-            <a class="pages nav__link" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095;</a>
+            <a class="pages" href="board.php?board=' . $board['value'] . '&page=' . $prev . '">&#10094; Назад</a>
+            <a class="pages" href="board.php?board=' . $board['value'] . '&page=' . $next . '">Далее &#10095;</a>
             ';
             }
             echo '</div>

@@ -16,6 +16,12 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([]);
 
 $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$sql = 'SELECT * FROM users WHERE ban=1';
+$stmt = $pdo->prepare($sql);
+$stmt->execute([]);
+
+$ban = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <body>
@@ -31,10 +37,31 @@ $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
           if ($_SESSION['user']['role'] == 'mastadmin') {
             echo '
             <div class="settings">
+            <a class="settings__link" id="banSelect">Бан</a>
             <a class="settings__link selected" id="usersSelect">Пользователи</a>
             <a class="settings__link" id="adminsSelect">Админы</a>
           </div>
             ';
+          }
+          ?>
+        </div>
+        <div class="ban" id="ban">
+          <?
+          if (count($ban) == 0) {
+            echo '<p style="width:85%;text-align:center;"</p>Пока что вы никого не забанили</p>';
+          }
+          ?>
+          <?
+          for ($i = 0; $i < count($ban); $i++) {
+            echo '<div class="user-block">
+                   <div class="user-info">
+                    <p class="user__avatar"><img class="circle" src="' . $ban[$i]['avatar'] . '" alt=""></p>
+                    <p class="user__login">' . $ban[$i]['login'] . '</p>
+                   </div>
+                   <div class="buttons-block">
+                   <a href="vendor/scripts/users/disban.php?user=' . $ban[$i]['login'] . '&from=users.php"><button class="button">Разбанить</button></a>
+                    </div>
+                </div>';
           }
           ?>
         </div>

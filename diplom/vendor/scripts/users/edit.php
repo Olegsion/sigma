@@ -8,7 +8,7 @@ $stmt->execute([$_REQUEST['user']]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($_POST['password'] != $user['login']) {
+if (sha1($_POST['password']) != $user['password']) {
   $_SESSION['error'] = 'Неверный пароль';
   header('Location: ../../../profile_edit.php?user=' . $_REQUEST['user']);
 } else {

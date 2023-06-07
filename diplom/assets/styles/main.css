@@ -129,6 +129,15 @@ body {
   padding: 1rem 0;
 }
 
+.pages {
+  color: var(--font-color);
+  text-align: center;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
 .pages:hover {
   color: var(--accent-color);
 }

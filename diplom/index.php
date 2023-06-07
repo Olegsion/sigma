@@ -1,5 +1,11 @@
 <?
-require_once 'vendor/components/head.php' ?>
+require_once 'vendor/components/head.php';
+$sql = 'SELECT * FROM users LIMIT 5';
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 
 <body>
   <div class="wrapper">

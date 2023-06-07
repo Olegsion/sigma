@@ -40,11 +40,11 @@ if ($user) {
 
     $sql = 'INSERT INTO users (login, avatar, email, password, reg, hash) VALUES (?,?,?,?,?,"")';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([addslashes($_POST['login']), $fileName, addslashes($_POST['email']), addslashes($_POST['password']), date('Y-m-d')]);
+    $stmt->execute([addslashes($_POST['login']), $fileName, addslashes($_POST['email']), sha1($_POST['password']), date('Y-m-d')]);
 
     $sql = 'SELECT * FROM users WHERE login=? AND password=?';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([addslashes($_POST['login']),  addslashes($_POST['password'])]);
+    $stmt->execute([addslashes($_POST['login']), sha1($_POST['password'])]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

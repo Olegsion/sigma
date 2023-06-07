@@ -13,12 +13,11 @@ if ($user) {
   $stmt = $pdo->prepare($sql);
   $stmt->execute([hash('sha256', $_POST['email']), $_POST['email']]);
 
-  mail($user[0]['email'], 'Восстановление пароля BASEDFORUM', 'Для восстановления пароля перейдите по ссылке: /diplom/recovery.php?hash=' . hash('sha256', $_POST['email']));
+  mail($user[0]['email'], 'Восстановление пароля MooChan', 'Для восстановления пароля перейдите по ссылке: /diplom/recovery.php?hash=' . hash('sha256', $_POST['email']));
 
   $_SESSION['message'] = "На вашу электронную почту было отправленно письмо с ссылкой для изменения пароля. Откройте присланное письмо и перейдите по ссылке.";
 } else {
   $_SESSION['error'] = "Пользователь с такой почтой не найден...";
 }
-
 
 header('Location: ../../../');

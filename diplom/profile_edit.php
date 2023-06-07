@@ -23,7 +23,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <span class="label__desc">Картинка профиля</span>
             <img class="preview" src="<? echo $user['avatar'] ?>" />
             <span class="button submit">Изменить</span>
-            <input class="input-image" hidden type="file" value="<? echo $user['avatar'] ?>" accept="image/jpeg, image/jpg, image/png, image/gif" name="avatar" onchange="previewFile()">
+            <input class="input-image" hidden type="file" accept="image/jpeg, image/jpg, image/png, image/gif" name="avatar" onchange="previewFile()">
           </label>
           <label class="label">
             <span class="label__desc">Почта</span>

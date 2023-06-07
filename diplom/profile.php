@@ -1,19 +1,19 @@
 <?
 require_once 'vendor/components/head.php' ?>
 <?
-$sql = 'SELECT *, DATE_FORMAT(`reg`, "     %d.%m.%Y     ") as `reg` FROM users WHERE login=?';
+$sql = 'SELECT *, DATE_FORMAT(`reg`, "     %d.%m.%Y     ") as `reg` FROM users WHERE login=? AND ban<>1';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_REQUEST['user']]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE author=? AND thread_id="self" ORDER BY id DESC';
+$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE author=? AND thread_id="self" AND ban<>1 ORDER BY id DESC';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$user['login']]);
 
 $threads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE author=? AND thread_id <> "self" ORDER BY id DESC';
+$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE author=? AND thread_id<>"self" AND ban<>1 ORDER BY id DESC';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$user['login']]);
 
@@ -145,7 +145,7 @@ $days = ['11', '12', '13', '14', '15', '16', '17', '18', '19']
             echo '
         <a class="post__author" href="profile.php?user=' . $posts[$i]['author'] . '">' . $posts[$i]['author'] . '</a>
         <p class="post__date">' . $posts[$i]['date'] . '</p>
-        <a class="post__id" href="thread.php?thread=' . $posts[$i]['id'] . '">#' . $posts[$i]['id'] . '</a>
+        <a class="post__id" href="thread.php?thread=' . $posts[$i]['thread_id'] . '">#' . $posts[$i]['id'] . '</a>
         </div>
         <div class="post__interactive">';
             if ($_SESSION['user']['role'] == 'admin' ||  $_SESSION['user']['role'] == 'mastadmin' || $_SESSION['user']['login'] == $user['login']) {

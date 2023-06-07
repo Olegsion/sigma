@@ -21,5 +21,3 @@ if ($_REQUEST['page']) {
 } else {
   header('Location: ../../../' .   $_REQUEST['from']);
 }
-
-var_dump($_REQUEST);

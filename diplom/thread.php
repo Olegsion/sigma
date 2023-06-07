@@ -1,7 +1,7 @@
 <?
 require_once 'vendor/components/head.php' ?>
 <?
-$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date`FROM posts WHERE id=?';
+$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date`FROM posts WHERE id=? AND ban<>1';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_REQUEST['thread']]);
 
@@ -13,7 +13,7 @@ $stmt->execute([$thread['board']]);
 
 $board = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE thread_id=?';
+$sql = 'SELECT *, DATE_FORMAT(`date`, "     %k:%i  %d.%m.%Y     ") as `date` FROM posts WHERE thread_id=? AND ban<>1';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$thread['id']]);
 
@@ -48,7 +48,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                       <label class="label file">
                           <span class="label__desc">Картинка</span>
                           <img class="preview" src="" />
-                          <span class="button submit">Добавить</span>
+                          <span class="button submit pic">Добавить</span>
                           <input class="input-image" hidden type="file" accept="image/jpeg, image/jpg, image/png, image/gif" name="pic" onchange="previewFile()">
                       </label>
                     </div>
@@ -129,7 +129,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <?
     $page = basename(__FILE__);
     require_once 'vendor/components/error_form.php';
-
     ?>
     <script defer src="assets/js/previewImage.js"></script>
     <script defer src="assets/js/reply.js"></script>
