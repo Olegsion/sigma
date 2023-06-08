@@ -62,7 +62,7 @@
 
 .post__interactive {
   display: flex;
-  gap: .25rem;
+  gap: 0.25rem;
 }
 
 .delete {
@@ -104,4 +104,10 @@
   max-height: 30rem;
   max-width: 50%;
   width: auto;
+}
+
+.offer {
+  position: relative;
+  top: -80%;
+  right: -100%;
 }

@@ -5,23 +5,43 @@ if ($_SESSION['user']['role'] != 'admin' && $_SESSION['user']['role'] != 'mastad
   header('Location: /');
 }
 
-$sql = 'SELECT * FROM users WHERE role="user" AND ban <> 1';
-$stmt = $pdo->prepare($sql);
-$stmt->execute([]);
+if ($_REQUEST['search']) {
+  $sql = 'SELECT * FROM users WHERE role="user" AND login=? AND ban <> 1';
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([$_REQUEST['search']]);
 
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT * FROM users WHERE role="admin" AND ban <> 1';
-$stmt = $pdo->prepare($sql);
-$stmt->execute([]);
+  $sql = 'SELECT * FROM users WHERE role="admin" AND login=? AND ban <> 1';
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([$_REQUEST['search']]);
 
-$admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT * FROM users WHERE ban=1';
-$stmt = $pdo->prepare($sql);
-$stmt->execute([]);
+  $sql = 'SELECT * FROM users WHERE ban=1 AND login=?';
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([$_REQUEST['search']]);
 
-$ban = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $ban = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+  $sql = 'SELECT * FROM users WHERE role="user" AND ban <> 1';
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([]);
+
+  $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  $sql = 'SELECT * FROM users WHERE role="admin" AND ban <> 1';
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([]);
+
+  $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  $sql = 'SELECT * FROM users WHERE ban=1';
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([]);
+
+  $ban = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
 
 <body>
@@ -32,6 +52,13 @@ $ban = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="interactive">
           <div class="info-block">
             <h1 class="board-heading">Пользователи</h1>
+            <form class="form" action="vendor/scripts/users/search.php" method="POST" autocomplete="off">
+              <label class="label">
+                <span class="label__desc">Поиск пользователя</span>
+                <input class="input" name="user" type="text" maxlength="50" placeholder="Логин пользователя" autocomplete="off">
+              </label>
+              <button class="button submit">Поиск</button>
+            </form>
           </div>
           <?
           if ($_SESSION['user']['role'] == 'mastadmin') {
@@ -57,6 +84,7 @@ $ban = $stmt->fetchAll(PDO::FETCH_ASSOC);
                    <div class="user-info">
                     <p class="user__avatar"><img class="circle" src="' . $ban[$i]['avatar'] . '" alt=""></p>
                     <p class="user__login">' . $ban[$i]['login'] . '</p>
+                    <p class="user__login">' . $ban[$i]['email'] . '</p>
                    </div>
                    <div class="buttons-block">
                    <a href="vendor/scripts/users/disban.php?user=' . $ban[$i]['login'] . '&from=users.php"><button class="button">Разбанить</button></a>
@@ -77,7 +105,8 @@ $ban = $stmt->fetchAll(PDO::FETCH_ASSOC);
                    <div class="user-info">
                     <a class="user__avatar" href="profile.php?user=' . $users[$i]['login'] . '"><img class="circle" src="' . $users[$i]['avatar'] . '" alt=""></a>
                     <a class="user__login" href="profile.php?user=' . $users[$i]['login'] . '">' . $users[$i]['login'] . '</a>
-                   </div>
+                    <p class="user__login">' . $users[$i]['email'] . '</p>
+                    </div>
                    <div class="buttons-block">
                    <a href="vendor/scripts/users/delete.php?user=' . $users[$i]['login'] . '&from=users.php"><button class="button">Забанить</button></a>';
             if ($_SESSION['user']['role'] == 'mastadmin') {
@@ -101,7 +130,8 @@ $ban = $stmt->fetchAll(PDO::FETCH_ASSOC);
                    <div class="user-info">
                     <a class="user__avatar" href="profile.php?user=' . $admins[$i]['login'] . '"><img class="circle" src="' . $admins[$i]['avatar'] . '" alt=""></a>
                     <a class="user__login" href="profile.php?user=' . $admins[$i]['login'] . '">' . $admins[$i]['login'] . '</a>
-                   </div>
+                    <p class="user__login">' . $admins[$i]['email'] . '</p>
+                    </div>
                    <div class="buttons-block">
                    <a href="vendor/scripts/users/delete.php?user=' . $admins[$i]['login'] . '&from=users.php"><button class="button">Забанить</button></a>
                    <a href="vendor/scripts/users/disadmin.php?user=' . $admins[$i]['login'] . '&from=users.php"><button class="button">Лишить админки</button></a>

@@ -47,6 +47,8 @@ if (sha1($_POST['password']) != $user['password']) {
         if ($_SESSION['user']['avatar'] != 'assets/images/user_icon.png') {
           unlink('../../../' . $user['avatar']);
         }
+      } else {
+        $fileName =  $_SESSION['user']['avatar'];
       }
 
       $sql = 'UPDATE users SET login=?, email=?, avatar=? WHERE login=?';
@@ -64,7 +66,7 @@ if (sha1($_POST['password']) != $user['password']) {
       $_SESSION['user']['email'] = $user['email'];
       $_SESSION['user']['avatar'] = $user['avatar'];
 
-
+      var_dump($_FILES['avatar']['name']);
       header('Location: ../../../profile.php?user=' . $_SESSION['user']['login']);
     }
   }

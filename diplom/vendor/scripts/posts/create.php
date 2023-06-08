@@ -17,11 +17,9 @@ if ($lenght > 0) {
   $fileName = '';
 }
 
-for ($i = 0; $i < 35; $i++) {
-  $sql = 'INSERT INTO posts(board, author, body, pic, thread_id) VALUES(?,?,?,?,?)';
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute([$_REQUEST['board'], $_SESSION['user']['login'], $_POST['body'], $fileName, $_REQUEST['thread_id']]);
-}
+$sql = 'INSERT INTO posts(board, author, body, pic, thread_id) VALUES(?,?,?,?,?)';
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$_REQUEST['board'], $_SESSION['user']['login'], $_POST['body'], $fileName, $_REQUEST['thread_id']]);
 
 if ($_REQUEST['from']) {
   $sql = 'SELECT * FROM posts WHERE author=? AND id=(SELECT MAX(id) FROM posts)';
@@ -30,7 +28,7 @@ if ($_REQUEST['from']) {
 
   $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  header('Location: ../../../' . $_REQUEST['from'].'#'. $post['id']);
+  header('Location: ../../../' . $_REQUEST['from'] . '#' . $post['id']);
 } else {
   $sql = 'SELECT * FROM posts WHERE author=? AND id=(SELECT MAX(id) FROM posts)';
   $stmt = $pdo->prepare($sql);

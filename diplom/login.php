@@ -8,7 +8,7 @@ if ($_SESSION['user']) {
 
 <body>
   <div class="wrapper">
-    <? require_once 'vendor/components/header.php' ?><? require_once 'vendor/components/auth_modal.php' ?>
+    <? require_once 'vendor/components/header.php' ?>
     <main class="main">
       <form class="form" action="vendor/scripts/users/login.php" method="POST" autocomplete="off">
         <h1 class="form-heading">Авторизация</h1>

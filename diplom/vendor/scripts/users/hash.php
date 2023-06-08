@@ -13,7 +13,7 @@ if ($user) {
   $stmt = $pdo->prepare($sql);
   $stmt->execute([hash('sha256', $_POST['email']), $_POST['email']]);
 
-  mail($user[0]['email'], 'Восстановление пароля MooChan', 'Для восстановления пароля перейдите по ссылке: /diplom/recovery.php?hash=' . hash('sha256', $_POST['email']));
+  mail($user[0]['email'], 'Восстановление пароля MooChan', 'Для восстановления пароля перейдите по ссылке: http://a0828499.xsph.ru/recovery.php?hash=' . hash('sha256', $_POST['email']));
 
   $_SESSION['message'] = "На вашу электронную почту было отправленно письмо с ссылкой для изменения пароля. Откройте присланное письмо и перейдите по ссылке.";
 } else {

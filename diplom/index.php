@@ -44,8 +44,23 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             Уважайте <a class="accent" href="rules.php">правила</a> нашего сообщества, чтобы создать безопасную и приятную обстановку для всех участников. Не забывайте о том, что взаимное уважение и толерантность – основа нашего сообщества.
             Мы надеемся, что наш форум станет вашим любимым местом для общения.
           </p>
+          <form class="form post-create" action="vendor/scripts/offers/create.php" method="POST" autocomplete="off">
+            <h2 class="form-heading">Обратная связь</h2>
+            <div class="labels">
+              <label class="label">
+                <span class="label__desc">Тема</span>
+                <input class="input" name="theme" type="text" maxlength="50" placeholder="Укажите какая тема вас беспокоит" autocomplete="off" required>
+              </label>
+              <label class="label">
+                <span class="label__desc">Текст</span>
+                <textarea class="input textarea" name="text" minlenght="6" maxlength="1500" autocomplete="off" required></textarea>
+              </label>
+            </div>
+            <button class="button submit">Создать</button>
+          </form>
         </div>
       </div>
+
       <? require_once 'vendor/components/nav.php' ?>
       <? require_once 'vendor/components/error_form.php' ?>
     </main>

@@ -9,7 +9,7 @@ $stmt->execute([$_REQUEST['id'], $_REQUEST['id']]);
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 for ($i = 0; $i < count($posts); $i++) {
-  unlink('../../../' . $posts[$i]['pic']);
+  unlink('../../../uploads/posts_images/' . $posts[$i]['pic']);
 }
 
 $sql = 'DELETE FROM posts WHERE id=? OR thread_id=?';

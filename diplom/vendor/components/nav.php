@@ -15,6 +15,7 @@ $themes = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <p class="section__name">Админ-панель</p>
       <a href="themes.php" class="nav__link">Темы</a>
       <a href="users.php" class="nav__link">Пользователи</a>
+      <a href="offers.php" class="nav__link">Отзывы</a>
     </div>
     ';
   }
